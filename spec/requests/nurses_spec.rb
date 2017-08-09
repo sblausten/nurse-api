@@ -76,7 +76,11 @@ describe 'Nurses requests', type: :request do
 
     context 'when the request is invalid' do
 
-      before { post '/nurses', params: { email: 'test@test.com', role: role } }
+      before {
+        post '/nurses', params: {
+          email: 'test@test.com',
+          role: role }
+      }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -85,6 +89,29 @@ describe 'Nurses requests', type: :request do
       it 'returns a validation failure message' do
         expect(response.body)
           .to match(/Validation failed: First name can't be blank, Last name can't be blank/)
+      end
+    end
+  end
+
+  describe 'PUT /nurses/:id' do
+
+    let(:nurse_id) { 2 }
+
+    let(:valid_attributes) { {
+      email: 'updated@test.com',
+    } }
+
+    context 'when the record exists' do
+      before {
+        put "/nurses/#{nurse_id}", params: valid_attributes
+      }
+
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+
+      it 'updates the record' do
+        expect(response.body).to be_empty
       end
     end
   end

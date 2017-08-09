@@ -17,6 +17,12 @@ class NursesController < ApplicationController
     render json: @nurse, status: :created
   end
 
+  def update
+    @nurse = Nurse.find_by_id(params[:id])
+    @nurse.update(permit_params)
+    head :no_content
+  end
+
   private
 
   def permit_params
