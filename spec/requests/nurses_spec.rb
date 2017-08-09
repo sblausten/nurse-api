@@ -116,4 +116,14 @@ describe 'Nurses requests', type: :request do
     end
   end
 
+  describe 'DELETE /nurses/:id' do
+    
+    let(:nurse_id) { 2 }
+
+    it 'returns status code 204' do
+      delete "/nurses/#{nurse_id}"
+      expect(response).to have_http_status(204)
+    end
+
+  end
 end
