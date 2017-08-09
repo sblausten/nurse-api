@@ -19,7 +19,7 @@ class NursesController < ApplicationController
   end
 
   def update
-    @nurse.update(permit_params)
+    @nurse.update!(permit_params)
     head :no_content
   end
 

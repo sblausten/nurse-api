@@ -114,10 +114,11 @@ describe 'Nurses requests', type: :request do
         expect(response.body).to be_empty
       end
     end
+    
   end
 
   describe 'DELETE /nurses/:id' do
-    
+
     let(:nurse_id) { 2 }
 
     it 'returns status code 204' do
