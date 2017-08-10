@@ -38,9 +38,7 @@ class NursesController < ApplicationController
   end
 
   def find_nurse
-    if params[:first_name] && params[:last_name]
-      @nurse = Nurse.find_by(first_name: params[:first_name], last_name: params[:last_name])
-    elsif params[:id]
+    if params[:id]
       @nurse = Nurse.find(params[:id])
     end
   end
@@ -52,4 +50,5 @@ class NursesController < ApplicationController
   def process_role
     role = Role.find_or_create_by!(name: params[:role])['id']
   end
+
 end
