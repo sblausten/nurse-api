@@ -1,6 +1,6 @@
 class NursesController < ApplicationController
-
-  before_action :find_nurse, only: [:show, :update, :destroy]
+  before_action :clean_params
+  before_action :find_nurse_by_id, only: [:show, :update, :destroy]
 
   def index
     @nurses = Nurse.all
@@ -12,10 +12,14 @@ class NursesController < ApplicationController
   end
 
   def create
-    @nurse = Nurse.new(permit_params)
-    @nurse.role_id = process_role
-    @nurse.save!
-    render json: @nurse, status: :created
+    if @nurse
+      render json: @nurse, status: :conflict
+    else
+      @nurse = Nurse.new(permit_params)
+      @nurse.role_id = process_role
+      @nurse.save!
+      render json: @nurse, status: :created
+    end
   end
 
   def update
@@ -30,7 +34,12 @@ class NursesController < ApplicationController
 
   private
 
-  def find_nurse
+  def clean_params
+    params[:first_name].downcase! if params[:first_name]
+    params[:last_name].downcase! if params[:last_name]
+  end
+
+  def find_nurse_by_id
     @nurse = Nurse.find(params[:id])
   end
 

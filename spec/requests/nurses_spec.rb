@@ -56,8 +56,8 @@ describe 'Nurses requests', type: :request do
     let(:role) { create(:role, name: "nurse") }
 
     let(:valid_attributes) { {
-      first_name: 'Firstname',
-      last_name: 'Secondname',
+      first_name: 'First',
+      last_name: 'Second',
       email: 'test@test.com',
       role: "nurse"
     } }
@@ -66,7 +66,7 @@ describe 'Nurses requests', type: :request do
       before { post '/nurses', params: valid_attributes }
 
       it 'creates a nurse' do
-        expect(JSON.parse(response.body)['first_name']).to eq('Firstname')
+        expect(JSON.parse(response.body)['first_name']).to eq('first')
       end
 
       it 'returns status code 201' do
@@ -75,7 +75,6 @@ describe 'Nurses requests', type: :request do
     end
 
     context 'when the request is invalid' do
-
       before {
         post '/nurses', params: {
           email: 'test@test.com',
@@ -114,7 +113,7 @@ describe 'Nurses requests', type: :request do
         expect(response.body).to be_empty
       end
     end
-    
+
   end
 
   describe 'DELETE /nurses/:id' do
