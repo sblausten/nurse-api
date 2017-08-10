@@ -31,7 +31,16 @@ rake spec
 
 ## Usage
 
-Where :id is the nurse's database id.
+Cheatsheet:
+| Request | Address | Action |
+|:-:|---|---|
+| GET | /nurses | Returns all nurses |
+| GET | /nurses/:id | Returns nurse object matching that id  |
+| POST | /nurses | Adds new nurse to database (see below for required and optional parameters) |
+| PUT | /nurses/:id | Updates existing nurse in database (see below for optional parameters) |
+| DELETE | /nurses/:id | Removes existing nurse in database |
+
+**Where :id is the nurse's database id.**
 
 - To get all nurses in the database in JSON format:
 Make a GET request to /nurses
@@ -49,7 +58,7 @@ Make a PUT request to /nurses/:id with parameters:
   - optional: first_name (String), last_name (String), role (String), email (String), phone_number (String)
 
 - To remove a nurse from the database:
-Make a DESTROY request to /nurses/:id
+Make a DELETE request to /nurses/:id
 
 ## To do
 - Check when posting for record already existing
