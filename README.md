@@ -29,7 +29,28 @@ The first time you may need to use:
 rake spec
 ```
 
+## Usage
+
+Where :id is the nurse's database id.
+
+- To get all nurses in the database in JSON format:
+Make a GET request to /nurses
+
+- To get a single nurse's details in JSON format:
+Make a GET request to /nurses/:id
+
+- To add a new nurse to the database:
+Make a POST request to /nurses with parameters:
+  - required: first_name (String), last_name (String), role (String)
+  - optional: email (String), phone_number (String)
+
+- To update an existing nurse in the database:
+Make a PUT request to /nurses/:id with parameters:
+  - optional: first_name (String), last_name (String), role (String), email (String), phone_number (String)
+
+- To remove a nurse from the database:
+Make a DESTROY request to /nurses/:id
+
 ## To do
 - Check when posting for record already existing
-- Write api usage instructions
 - Add more edge case tests
