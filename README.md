@@ -66,3 +66,5 @@ Make a DELETE request to /nurses/:id or /nurses/:first_name/:last_name
 
 ## To do
 - Add more edge case tests
+- Add controller tests
+- Add model tests
