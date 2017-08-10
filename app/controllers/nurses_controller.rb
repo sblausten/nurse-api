@@ -1,6 +1,6 @@
 class NursesController < ApplicationController
   before_action :clean_params, only: [:create, :update]
-  before_action :find_nurse, only: [:show, :create, :update, :destroy]
+  before_action :find_nurse, only: [:show, :update, :destroy]
 
   def index
     @nurses = Nurse.all
@@ -20,7 +20,7 @@ class NursesController < ApplicationController
 
   def update
     @nurse.update!(permit_params)
-    head :no_content
+    head :ok
   end
 
   def destroy
@@ -38,7 +38,9 @@ class NursesController < ApplicationController
   end
 
   def find_nurse
-    if params[:id]
+    if params[:first_name] && params[:last_name]
+      @nurse = Nurse.find_by!(first_name: params[:first_name], last_name: params[:last_name])
+    elsif params[:id]
       @nurse = Nurse.find(params[:id])
     end
   end
