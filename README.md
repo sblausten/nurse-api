@@ -30,6 +30,7 @@ rake spec
 ```
 
 ## Usage
+**For safety, prefer endpoints utilising the id rather than first and last name when making requests via PUT or DELETE.**
 
 Cheatsheet:
 
@@ -63,6 +64,11 @@ Make a PUT request to /nurses/:id or /nurses/:first_name/:last_name with paramet
 
 - To remove a nurse from the database:
 Make a DELETE request to /nurses/:id or /nurses/:first_name/:last_name
+
+## Considerations
+In retrospect it is probably safer to use first_name last_name AND email in requests not directly using id. This would avoid entries with identical names both getting deleted by accident. 
+
+For safety, prefer endpoints utilising the id rather than first and last name.
 
 ## To do
 - Add more edge case tests
