@@ -1,6 +1,6 @@
 class NursesController < ApplicationController
-  before_action :clean_params
-  before_action :find_nurse_by_id, only: [:show, :update, :destroy]
+  before_action :clean_params, only: [:create, :update]
+  before_action :find_nurse, only: [:show, :create, :update, :destroy]
 
   def index
     @nurses = Nurse.all
@@ -12,14 +12,10 @@ class NursesController < ApplicationController
   end
 
   def create
-    if @nurse
-      render json: @nurse, status: :conflict
-    else
-      @nurse = Nurse.new(permit_params)
-      @nurse.role_id = process_role
-      @nurse.save!
-      render json: @nurse, status: :created
-    end
+    @nurse = Nurse.new(permit_params)
+    @nurse.role_id = process_role
+    @nurse.save!
+    render json: @nurse, status: :created
   end
 
   def update
@@ -37,10 +33,16 @@ class NursesController < ApplicationController
   def clean_params
     params[:first_name].downcase! if params[:first_name]
     params[:last_name].downcase! if params[:last_name]
+    params[:role].downcase! if params[:role]
+    params[:phone_number].gsub!(/[^0-9]/, "") if params[:phone_number]
   end
 
-  def find_nurse_by_id
-    @nurse = Nurse.find(params[:id])
+  def find_nurse
+    if params[:first_name] && params[:last_name]
+      @nurse = Nurse.find_by(first_name: params[:first_name], last_name: params[:last_name])
+    elsif params[:id]
+      @nurse = Nurse.find(params[:id])
+    end
   end
 
   def permit_params
@@ -48,11 +50,6 @@ class NursesController < ApplicationController
   end
 
   def process_role
-    if Role.exists?(name: params[:role])
-      role = Role.find(name: params[:role])['id']
-    else
-      role = Role.create!(name: params[:role])['id']
-    end
+    role = Role.find_or_create_by!(name: params[:role])['id']
   end
-
 end

@@ -13,6 +13,7 @@ module ExceptionHandler
     rescue_from ActiveRecord::RecordInvalid do |error|
       respond({ message: error.message }, :unprocessable_entity)
     end
+
   end
 
   private

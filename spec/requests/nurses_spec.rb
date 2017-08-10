@@ -21,12 +21,11 @@ describe 'Nurses requests', type: :request do
 
   describe 'GET /nurses/:id' do
 
-    before {
-      get "/nurses/#{nurse_id}"
-    }
-
     context 'when the record exists' do
       let(:nurse_id) { nurses.last.id }
+      before {
+        get "/api/nurses/#{nurse_id}"
+      }
 
       it 'returns status code 200' do
         expect(response).to have_http_status(200)
@@ -38,8 +37,13 @@ describe 'Nurses requests', type: :request do
     end
 
     context 'when the record does not exist' do
+      let(:nurse_id) { 101 }
+      let(:first_name) { "Notexisting" }
+      let(:second_name) { "Notexisting" }
 
-      let(:nurse_id) { 50 }
+      before {
+        get "/api/nurses/#{nurse_id}"
+      }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
@@ -63,7 +67,7 @@ describe 'Nurses requests', type: :request do
     } }
 
     context 'when the request is valid' do
-      before { post '/nurses', params: valid_attributes }
+      before { post '/api/nurses', params: valid_attributes }
 
       it 'creates a nurse' do
         expect(JSON.parse(response.body)['first_name']).to eq('first')
@@ -76,9 +80,9 @@ describe 'Nurses requests', type: :request do
 
     context 'when the request is invalid' do
       before {
-        post '/nurses', params: {
+        post '/api/nurses', params: {
           email: 'test@test.com',
-          role: role }
+          role: 'nurse' }
       }
 
       it 'returns status code 422' do
@@ -102,7 +106,7 @@ describe 'Nurses requests', type: :request do
 
     context 'when the record exists' do
       before {
-        put "/nurses/#{nurse_id}", params: valid_attributes
+        put "/api/nurses/#{nurse_id}", params: valid_attributes
       }
 
       it 'returns status code 204' do
@@ -121,7 +125,7 @@ describe 'Nurses requests', type: :request do
     let(:nurse_id) { 2 }
 
     it 'returns status code 204' do
-      delete "/nurses/#{nurse_id}"
+      delete "/api/nurses/#{nurse_id}"
       expect(response).to have_http_status(204)
     end
 
