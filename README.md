@@ -32,6 +32,7 @@ rake spec
 ## Usage
 
 Cheatsheet:
+
 | Request | Address | Action |
 |:-:|---|---|
 | GET | /nurses | Returns all nurses |
@@ -61,5 +62,6 @@ Make a PUT request to /nurses/:id with parameters:
 Make a DELETE request to /nurses/:id
 
 ## To do
+- Make GET PUT and DELETE work with first and last name instead of id
 - Check when posting for record already existing
 - Add more edge case tests
