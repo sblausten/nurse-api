@@ -32,6 +32,7 @@ rake spec
 ## Usage
 
 Cheatsheet:
+
 | Request | Address | Action |
 |:-:|---|---|
 | GET | /nurses | Returns all nurses |
