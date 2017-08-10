@@ -28,3 +28,8 @@ The first time you may need to use:
 ```bash
 rake spec
 ```
+
+## To do
+- Check when posting for record already existing
+- Write api usage instructions
+- Add more edge case tests
