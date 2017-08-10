@@ -37,9 +37,12 @@ Cheatsheet:
 |:-:|---|---|
 | GET | /nurses | Returns all nurses |
 | GET | /nurses/:id | Returns nurse object matching that id  |
+| GET | /nurses/:first_name/:last_name | Returns nurse object matching that first and last name  |
 | POST | /nurses | Adds new nurse to database (see below for required and optional parameters) |
 | PUT | /nurses/:id | Updates existing nurse in database (see below for optional parameters) |
+| PUT | /nurses/:first_name/:last_name | Updates existing nurse in database (see below for optional parameters) |
 | DELETE | /nurses/:id | Removes existing nurse in database |
+| DELETE | /nurses/:first_name/:last_name | Removes existing nurse in database |
 
 **Where :id is the nurse's database id.**
 
@@ -47,7 +50,7 @@ Cheatsheet:
 Make a GET request to /nurses
 
 - To get a single nurse's details in JSON format:
-Make a GET request to /nurses/:id
+Make a GET request to /nurses/:id or /nurses/:first_name/:last_name
 
 - To add a new nurse to the database:
 Make a POST request to /nurses with parameters:
@@ -55,13 +58,11 @@ Make a POST request to /nurses with parameters:
   - optional: email (String), phone_number (String)
 
 - To update an existing nurse in the database:
-Make a PUT request to /nurses/:id with parameters:
+Make a PUT request to /nurses/:id or /nurses/:first_name/:last_name with parameters:
   - optional: first_name (String), last_name (String), role (String), email (String), phone_number (String)
 
 - To remove a nurse from the database:
-Make a DELETE request to /nurses/:id
+Make a DELETE request to /nurses/:id or /nurses/:first_name/:last_name
 
 ## To do
-- Make GET PUT and DELETE work with first and last name instead of id
-- Check when posting for record already existing
 - Add more edge case tests
